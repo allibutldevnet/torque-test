@@ -1,0 +1,51 @@
+spec_version: 2
+description: Torque auto generated blueprint
+
+instructions:
+  source:
+    store: torque-test
+    path: instructions/resource_tab_instructions.md
+
+outputs: {}
+inputs: 
+  dynamic-input:
+    type: string
+    default: |
+          {
+            "svc1": {
+              "data": {
+                "mode": "party1",
+                "username": "TEST"
+              }},
+            "svc2": {
+              "data": {
+                "mode": "party2",
+                "size": "large2"
+              }
+            "db1": {
+              "data": {
+                "mode": "party3",
+                "size": "large3"
+              }
+            }
+          }     
+
+
+grains:
+  resource_tab:
+    #tf-version: 1.5.5    # The terraform version that will be used to deploy the module
+    kind: terraform
+    spec:
+      source:
+        store: common-grains
+        path: terraform/resource_tab
+      agent:
+      # The Torque agent that will be used to provision the environment.
+        name: 'tq-buildtest'
+      inputs: 
+      - introspection_data: '{{ .inputs.dynamic-input }}'
+
+      env-vars: []
+      outputs: []
+
+

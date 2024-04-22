@@ -1,0 +1,27 @@
+spec_version: 2
+description: generate a password for other blueprints to use
+
+inputs: 
+  agent:
+    type: agent
+
+outputs:
+  password:
+    value: '{{ .grains.password.outputs.password }}'
+  username:
+    value: '{{ .grains.password.outputs.username }}'
+
+grains:
+  password:
+    kind: terraform
+    spec: 
+      source:
+        store: torque-test
+        path: terraform/tq_creds
+      env-vars:
+      - USERNAME: "{{ ownerEmail }}"
+      agent:
+        name: '{{ .inputs.agent }}'
+      outputs:
+        - password
+        - username
