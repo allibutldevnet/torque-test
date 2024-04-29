@@ -8,6 +8,8 @@ instructions:
 
 outputs: {}
 inputs: 
+  agent:
+    type: agent
   dynamic-input:
     type: string
     default: |
@@ -41,7 +43,7 @@ grains:
         path: terraform/resource_tab
       agent:
       # The Torque agent that will be used to provision the environment.
-        name: 'tq-buildtest'
+        name: '{{ .inputs.agent }}'
       inputs: 
       - introspection_data: '{{ .inputs.dynamic-input }}'
 
