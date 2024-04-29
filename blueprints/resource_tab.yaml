@@ -37,7 +37,7 @@ grains:
     kind: terraform
     spec:
       source:
-        store: common-grains
+        store: torque-test
         path: terraform/resource_tab
       agent:
       # The Torque agent that will be used to provision the environment.
